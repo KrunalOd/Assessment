@@ -1,0 +1,91 @@
+CREATE DATABASE CompanyDB;
+USE CompanyDB;
+
+
+CREATE TABLE Worker (
+    WORKER_ID INT PRIMARY KEY,
+    FIRST_NAME VARCHAR(50),
+    LAST_NAME VARCHAR(50),
+    SALARY INT,
+    JOINING_DATE DATETIME,
+    DEPARTMENT VARCHAR(50)
+);
+
+
+INSERT INTO Worker (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+(1, 'Monika', 'Arora', 100000, '2014-02-20 09:00:00', 'HR'),
+(2, 'Niharika', 'Verma', 80000, '2014-06-11 09:00:00', 'Admin'),
+(3, 'Vishal', 'Singhal', 300000, '2014-02-20 09:00:00', 'HR'),
+(4, 'Amitabh', 'Singh', 500000, '2014-02-20 09:00:00', 'Admin'),
+(5, 'Vivek', 'Bhati', 500000, '2014-06-11 09:00:00', 'Admin'),
+(6, 'Vipul', 'Diwan', 200000, '2014-06-11 09:00:00', 'Account'),
+(7, 'Satish', 'Kumar', 75000, '2014-01-20 09:00:00', 'Account'),
+(8, 'Geetika', 'Chauhan', 90000, '2014-04-11 09:00:00', 'Admin');
+
+SELECT * FROM Worker;
+
+#01
+SELECT * 
+FROM Worker 
+ORDER BY FIRST_NAME ASC, DEPARTMENT DESC;
+
+#02
+SELECT * 
+FROM Worker 
+WHERE FIRST_NAME IN ('Vipul', 'Satish');
+
+#03
+SELECT * 
+FROM Worker 
+WHERE FIRST_NAME LIKE '_____h';  
+
+#04
+SELECT * 
+FROM Worker 
+WHERE SALARY BETWEEN 1 AND 1000000;
+
+#05
+SELECT
+    FIRST_NAME, 
+    DEPARTMENT, 
+    COUNT(*) 
+FROM Worker 
+GROUP BY FIRST_NAME, DEPARTMENT 
+HAVING COUNT(*) > 1;
+
+#06
+SELECT * 
+FROM Worker 
+LIMIT 6;
+
+#07
+SELECT 
+    DEPARTMENT,
+    COUNT(*)
+FROM Worker 
+GROUP BY DEPARTMENT 
+HAVING COUNT(*) < 5;
+
+#08
+SELECT 
+     DEPARTMENT, 
+     COUNT(*) AS NumOfWorkers 
+FROM Worker 
+GROUP BY DEPARTMENT;
+
+#09
+SELECT FIRST_NAME, LAST_NAME, DEPARTMENT, SALARY
+FROM Worker w
+WHERE SALARY = (
+    SELECT MAX(SALARY)
+    FROM Worker
+    WHERE DEPARTMENT = w.DEPARTMENT
+);
+
+
+
+
+
+
+
+
